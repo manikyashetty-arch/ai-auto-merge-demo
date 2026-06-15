@@ -5,7 +5,7 @@ export async function retry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
       return await fn();
     } catch (err) {
       if (i === attempts - 1) throw err;
-      await sleep(1000);
+      await sleep(1000 * 2 ** i);
     }
   }
   throw new Error('unreachable');
