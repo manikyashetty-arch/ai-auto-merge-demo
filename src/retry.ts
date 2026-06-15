@@ -5,7 +5,8 @@ export async function retry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
       return await fn();
     } catch (err) {
       if (i === attempts - 1) throw err;
-      await sleep(1000 * 2 ** i);
+      // Retrying with exponential backoff and a random jitter
+      await sleep(1000 * 2 ** i + Math.random() * 500);
     }
   }
   throw new Error('unreachable');
