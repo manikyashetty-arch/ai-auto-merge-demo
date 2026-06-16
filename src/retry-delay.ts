@@ -1,4 +1,6 @@
 /** Compute the delay (ms) before retry attempt N. */
 export function retryDelay(attempt: number): number {
-  return Math.min(1000, 30000);
+  // Exponential growth with a cap
+  const exponentialDelay = 1000 * 2 ** attempt;
+  return Math.min(exponentialDelay, 30000);
 }
